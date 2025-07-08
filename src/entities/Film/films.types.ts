@@ -8,6 +8,7 @@ interface IPoster {
 }
 
 export interface IFilm {
+  id: string;
   name: string;
   year: number;
   rating: IRating;

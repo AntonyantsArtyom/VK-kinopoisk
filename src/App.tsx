@@ -1,8 +1,17 @@
+import { useEffect } from "react";
 import { filmStore } from "./entities/Film/filmsStore";
+import FilmsList from "./entities/Film/UI/FilmsList";
 
 function App() {
-  filmStore.getFilmsFromPage(2);
-  return <>HELLO WORLD</>;
+  useEffect(() => {
+    filmStore.getFilmsFromPage(2);
+  }, []);
+
+  return (
+    <>
+      <FilmsList />
+    </>
+  );
 }
 
 export default App;
