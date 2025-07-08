@@ -4,7 +4,7 @@ import FilmCard from "./FilmCard";
 
 function FilmsList() {
   return (
-    <div>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(200px, 1fr))", gap: "1rem" }}>
       {filmStore.films.map((film) => (
         <FilmCard key={film.id} {...film} />
       ))}
