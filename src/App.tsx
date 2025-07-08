@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { filmStore } from "./entities/Film/filmsStore";
 import FilmsList from "./entities/Film/UI/FilmsList";
+import { FilmsFilter } from "./features/FilmsFilter/FilmsFilter";
 
 function App() {
   useEffect(() => {
@@ -9,6 +10,7 @@ function App() {
 
   return (
     <>
+      <FilmsFilter />
       <FilmsList />
     </>
   );
