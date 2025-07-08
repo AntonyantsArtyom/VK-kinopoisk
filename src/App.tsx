@@ -12,7 +12,7 @@ const App = () => {
   }, []);
 
   return (
-    <ConfigProvider>
+    <ConfigProvider colorScheme="light">
       <AdaptivityProvider>
         <AppRoot>
           <FilmsFilter />
