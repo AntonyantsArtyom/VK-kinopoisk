@@ -1,12 +1,13 @@
+import { Card, Text } from "@vkontakte/vkui";
 import type { IFilm } from "../films.types";
 
 const FilmCard = (film: IFilm) => (
-  <div>
-    {film?.poster?.url && <img src={film?.poster?.url} alt={film.name} style={{ width: "200px" }} />}
-    <h2>{film.name}</h2>
-    <p>{film.year}</p>
-    <p>{film.rating.kp}</p>
-  </div>
+  <Card>
+    {film?.poster?.url && <img src={film?.poster?.url} alt={film.name} style={{ width: "100%" }} />}
+    <Text>{film.name}</Text>
+    <Text>{film.year}</Text>
+    <Text>{film.rating.kp}</Text>
+  </Card>
 );
 
 export default FilmCard;
