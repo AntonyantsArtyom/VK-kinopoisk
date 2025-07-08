@@ -1,14 +1,15 @@
 import { observer } from "mobx-react-lite";
 import { filmStore } from "../filmsStore";
 import FilmCard from "./FilmCard";
+import { SimpleGrid } from "@vkontakte/vkui";
 
 function FilmsList() {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(200px, 1fr))", gap: "1rem" }}>
+    <SimpleGrid minColWidth={300} gap="m" margin="auto">
       {filmStore.films.map((film) => (
         <FilmCard key={film.id} {...film} />
       ))}
-    </div>
+    </SimpleGrid>
   );
 }
 
