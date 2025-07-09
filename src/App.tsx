@@ -10,6 +10,7 @@ import getFiltersFromParams from "./features/FilmsFilter/helpers/getFiltersFromP
 const App = () => {
   useEffect(() => {
     filmStore.setFilters(getFiltersFromParams());
+    filmStore.getFilmsFromPage(1);
     filmStore.getGenres();
   }, []);
 

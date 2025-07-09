@@ -8,10 +8,6 @@ function FilmsList() {
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    filmStore.getFilmsFromPage(1);
-  }, []);
-
-  useEffect(() => {
     const options = {
       root: null,
       rootMargin: "1400px",
