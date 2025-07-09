@@ -1,3 +1,11 @@
+export interface IFilmFilters {
+  year_start?: number;
+  year_end?: number;
+  rating_min?: number;
+  rating_max?: number;
+  genres?: string[];
+}
+
 interface IRating {
   kp: number;
 }

@@ -1,12 +1,18 @@
 import { observable, action, makeAutoObservable, runInAction } from "mobx";
 import { filmsApi } from "./filmsApi";
-import type { IFilm } from "./films.types";
+import type { IFilm, IFilmFilters } from "./films.types";
 
 class FilmStore {
   @observable films: IFilm[] = [];
+  @observable filter: IFilmFilters = {};
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  @action
+  async setFilters(filters: IFilmFilters) {
+    this.filter = filters;
   }
 
   @action

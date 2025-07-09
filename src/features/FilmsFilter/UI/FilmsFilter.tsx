@@ -1,9 +1,11 @@
 import { Icon16Search } from "@vkontakte/icons";
-import { Button, Chip, ChipsSelect, CustomSelectOption, FormItem, FormLayoutGroup, Input, Text } from "@vkontakte/vkui";
+import { Button, Chip, ChipsSelect, CustomSelectOption, FormItem, FormLayoutGroup, Input, Text, type ChipOption } from "@vkontakte/vkui";
 import styled from "styled-components";
-import { useIsLargeScreen } from "../../shared/useIsLargeScreen";
-import { useIsSmallScreen } from "../../shared/useIsSmallScreen";
-import { ConditionalContainer } from "../../shared/ConditionalContainer";
+import { useIsLargeScreen } from "../../../shared/useIsLargeScreen";
+import { useIsSmallScreen } from "../../../shared/useIsSmallScreen";
+import { ConditionalContainer } from "../../../shared/ConditionalContainer";
+import { filmStore } from "../../../entities/Film/filmsStore";
+import { observer } from "mobx-react-lite";
 
 const TextInputStyled = styled(Text)`
   padding: 0 5px;
@@ -52,15 +54,53 @@ const FormStyled = styled.form<{ isLargeScreen: boolean }>`
   display: ${({ isLargeScreen }) => (isLargeScreen ? "flex" : "grid")};
 `;
 
-export const FilmsFilter = () => {
+import { useEffect, useState } from "react";
+import type { IFilmFilters } from "../../../entities/Film/films.types";
+import setFiltersToParams from "../helpers/setFiltersToParams";
+import getFiltersFromParams from "../helpers/getFiltersFromParams";
+
+function FilmsFilter() {
   const isLargeScreen = useIsLargeScreen();
   const isSmallScreen = useIsSmallScreen();
+
+  const [filters, setFilters] = useState<IFilmFilters>({
+    year_start: undefined,
+    year_end: undefined,
+    rating_min: undefined,
+    rating_max: undefined,
+    genres: [],
+  });
+
+  const handleInputChange = (key: keyof IFilmFilters) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value === "" ? undefined : Number(value),
+    }));
+  };
+
+  const handleGenresChange = (selected: ChipOption[]) =>
+    setFilters((prev) => ({
+      ...prev,
+      genres: selected.map((item) => String(item.value)),
+    }));
+
+  useEffect(() => {
+    setFilters(getFiltersFromParams());
+  }, []);
+
+  useEffect(() => {
+    filmStore.setFilters(filters);
+    setFiltersToParams(filters);
+  }, [filters]);
 
   return (
     <FormStyled isLargeScreen={isLargeScreen} onSubmit={(e) => e.preventDefault()}>
       <FormGenresItemStyled isLargeScreen={isLargeScreen} htmlFor="groups" top="жанр">
         <ChipsSelect
           id="groups"
+          value={filters.genres?.map((genre) => ({ value: genre, label: genre }))}
+          onChange={handleGenresChange}
           options={[
             { value: "комедия", label: "комедия" },
             { value: "драма", label: "драма" },
@@ -81,27 +121,27 @@ export const FilmsFilter = () => {
               {label}
             </Chip>
           )}
-          renderOption={(props) => {
-            return <CustomSelectOption {...props} />;
-          }}
+          renderOption={(props) => <CustomSelectOption {...props} />}
         />
       </FormGenresItemStyled>
+
       <ConditionalContainer renderContainer={!isLargeScreen} Container={ConditionalFlexGridContainerStyled} props={{ isSmallScreen }}>
         <FormLayoutGroup mode="horizontal">
           <FormYearItemStyled isSmallScreen={isSmallScreen} htmlFor="year_start" top="период">
-            <Input id="year_start" placeholder="1990" before={<TextInputStyled color="secondary">после:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
+            <Input id="year_start" placeholder="1990" value={filters.year_start ?? ""} onChange={handleInputChange("year_start")} before={<TextInputStyled color="secondary">после:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
           </FormYearItemStyled>
           <FormYearItemStyled isSmallScreen={isSmallScreen} htmlFor="year_end">
-            <Input id="year_end" placeholder="2025" before={<TextInputStyled>до:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
+            <Input id="year_end" placeholder="2025" value={filters.year_end ?? ""} onChange={handleInputChange("year_end")} before={<TextInputStyled>до:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
           </FormYearItemStyled>
         </FormLayoutGroup>
+
         <ConditionalContainer renderContainer={isSmallScreen} Container={ConditionalSmallViewFlexContainer}>
           <FormLayoutGroup mode="horizontal">
             <FormRatingItemStyled htmlFor="rating_min" top="рейтинг">
-              <Input id="rating_min" placeholder="0" before={<TextInputStyled>от:</TextInputStyled>} />
+              <Input id="rating_min" placeholder="0" value={filters.rating_min ?? ""} onChange={handleInputChange("rating_min")} before={<TextInputStyled>от:</TextInputStyled>} />
             </FormRatingItemStyled>
             <FormRatingItemStyled htmlFor="rating_max">
-              <Input id="rating_max" placeholder="5" before={<TextInputStyled>до:</TextInputStyled>} />
+              <Input id="rating_max" placeholder="5" value={filters.rating_max ?? ""} onChange={handleInputChange("rating_max")} before={<TextInputStyled>до:</TextInputStyled>} />
             </FormRatingItemStyled>
           </FormLayoutGroup>
           <FormButtonsAreaItemStyled>
@@ -111,4 +151,6 @@ export const FilmsFilter = () => {
       </ConditionalContainer>
     </FormStyled>
   );
-};
+}
+
+export default observer(FilmsFilter);
