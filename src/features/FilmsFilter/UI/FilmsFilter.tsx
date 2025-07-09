@@ -72,11 +72,30 @@ function FilmsFilter() {
   });
 
   const handleInputChange = (key: keyof IFilmFilters) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setFilters((prev) => ({
-      ...prev,
-      [key]: value === "" ? undefined : Number(value),
-    }));
+    const MIN_YEAR = 1990;
+    const MAX_RATING = 10;
+
+    let value = e.target.value.replace(/\D/g, "");
+    if (key === "year_start" || key === "year_end") {
+      value = value.slice(0, 4);
+      let year = value === "" ? undefined : Number(value);
+
+      if (key == "year_start" && year && year > 1000 && year < MIN_YEAR) {
+        year = MIN_YEAR;
+      }
+
+      setFilters((prev) => ({ ...prev, [key]: year }));
+    }
+
+    if (key === "rating_min" || key === "rating_max") {
+      let rating: number | undefined = Number(value);
+      if (value === "") {
+        rating = undefined;
+      } else if (rating > MAX_RATING) {
+        rating = 10;
+      }
+      setFilters((prev) => ({ ...prev, [key]: rating }));
+    }
   };
 
   const handleGenresChange = (selected: ChipOption[]) =>
