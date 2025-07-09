@@ -5,9 +5,12 @@ import FilmsFilter from "./features/FilmsFilter/UI/FilmsFilter";
 import { observer } from "mobx-react-lite";
 
 import { AdaptivityProvider, AppRoot, ConfigProvider } from "@vkontakte/vkui";
+import getFiltersFromParams from "./features/FilmsFilter/helpers/getFiltersFromParams";
 
 const App = () => {
   useEffect(() => {
+    filmStore.setFilters(getFiltersFromParams());
+    filmStore.getGenres();
     filmStore.getFilmsFromPage(1);
   }, []);
 

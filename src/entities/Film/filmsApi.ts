@@ -1,16 +1,28 @@
 import { apiClient } from "../../shared/api";
-import type { IFilmsResponse } from "./films.types";
+import type { IFilmFilters, IFilmsResponse, IGenre } from "./films.types";
 
 export const filmsApi = {
-  getFilms: async (page: number) => {
+  getGenres: async () => {
+    return apiClient.get<IGenre[]>("v1/movie/possible-values-by-field?field=genres.name").then((res) => res.data);
+  },
+
+  getFilms: async (page: number, filters: IFilmFilters) => {
     const limit = 50;
-    return apiClient
-      .get<IFilmsResponse>("/movie", {
-        params: {
-          page,
-          limit,
-        },
-      })
-      .then((res) => res.data.docs);
+    const query: string[] = [];
+
+    query.push(`page=${page}`);
+    query.push(`limit=${limit}`);
+    query.push(`rating.kp=${filters.rating_min || 0}-${filters.rating_max || 10}`);
+    query.push(`year=${filters.year_start || 1990}-${filters.year_end || 2023}`);
+
+    if (filters.genres?.length) {
+      filters.genres.forEach((genre) => {
+        query.push(`genres.name=${genre}`);
+      });
+    }
+
+    const queryString = query.join("&");
+
+    return apiClient.get<IFilmsResponse>(`v1.4/movie?${queryString}`).then((res) => res.data.docs);
   },
 };

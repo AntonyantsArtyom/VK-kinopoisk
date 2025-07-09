@@ -6,6 +6,11 @@ export interface IFilmFilters {
   genres?: string[];
 }
 
+export interface IGenre {
+  name: string;
+  slug: string;
+}
+
 interface IRating {
   kp: number;
 }

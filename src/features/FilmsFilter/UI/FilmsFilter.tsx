@@ -96,21 +96,17 @@ function FilmsFilter() {
 
   return (
     <FormStyled isLargeScreen={isLargeScreen} onSubmit={(e) => e.preventDefault()}>
-      <FormGenresItemStyled isLargeScreen={isLargeScreen} htmlFor="groups" top="жанр">
+      <FormGenresItemStyled isLargeScreen={isLargeScreen} htmlFor="genres" top="жанр">
         <ChipsSelect
-          id="groups"
+          id="genres"
           value={filters.genres?.map((genre) => ({ value: genre, label: genre }))}
           onChange={handleGenresChange}
-          options={[
-            { value: "комедия", label: "комедия" },
-            { value: "драма", label: "драма" },
-            { value: "фэнтези", label: "фэнтези" },
-            { value: "детектив", label: "детектив" },
-            { value: "триллер", label: "триллер" },
-            { value: "ужасы", label: "ужасы" },
-            { value: "мелодрама", label: "мелодрама" },
-            { value: "приключения", label: "приключения" },
-          ]}
+          options={filmStore.genres.map((genre) => {
+            return {
+              value: genre.name,
+              label: genre.name,
+            };
+          })}
           placeholder="Все жанры"
           emptyText="ничего не найдено"
           selectedBehavior="hide"
