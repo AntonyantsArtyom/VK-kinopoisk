@@ -63,7 +63,7 @@ function FilmsFilter() {
   const isLargeScreen = useIsLargeScreen();
   const isSmallScreen = useIsSmallScreen();
 
-  const [filters, setFilters] = useState<IFilmFilters>({
+  const [currentFiltersContent, setCurrentFiltersContent] = useState<IFilmFilters>({
     year_start: undefined,
     year_end: undefined,
     rating_min: undefined,
@@ -84,7 +84,7 @@ function FilmsFilter() {
         year = MIN_YEAR;
       }
 
-      setFilters((prev) => ({ ...prev, [key]: year }));
+      setCurrentFiltersContent((prev) => ({ ...prev, [key]: year }));
     }
 
     if (key === "rating_min" || key === "rating_max") {
@@ -94,31 +94,33 @@ function FilmsFilter() {
       } else if (rating > MAX_RATING) {
         rating = 10;
       }
-      setFilters((prev) => ({ ...prev, [key]: rating }));
+      setCurrentFiltersContent((prev) => ({ ...prev, [key]: rating }));
     }
   };
 
   const handleGenresChange = (selected: ChipOption[]) =>
-    setFilters((prev) => ({
+    setCurrentFiltersContent((prev) => ({
       ...prev,
       genres: selected.map((item) => String(item.value)),
     }));
 
   useEffect(() => {
-    setFilters(getFiltersFromParams());
+    setCurrentFiltersContent(getFiltersFromParams());
+    filmStore.setFilters(currentFiltersContent);
   }, []);
 
-  useEffect(() => {
-    filmStore.setFilters(filters);
-    setFiltersToParams(filters);
-  }, [filters]);
+  const buttonClickHandler = () => {
+    filmStore.setFilters(currentFiltersContent);
+    setFiltersToParams(currentFiltersContent);
+    filmStore.getFilmsFromPage(1);
+  };
 
   return (
     <FormStyled isLargeScreen={isLargeScreen} onSubmit={(e) => e.preventDefault()}>
       <FormGenresItemStyled isLargeScreen={isLargeScreen} htmlFor="genres" top="жанр">
         <ChipsSelect
           id="genres"
-          value={filters.genres?.map((genre) => ({ value: genre, label: genre }))}
+          value={currentFiltersContent.genres?.map((genre) => ({ value: genre, label: genre }))}
           onChange={handleGenresChange}
           options={filmStore.genres.map((genre) => {
             return {
@@ -143,24 +145,24 @@ function FilmsFilter() {
       <ConditionalContainer renderContainer={!isLargeScreen} Container={ConditionalFlexGridContainerStyled} props={{ isSmallScreen }}>
         <FormLayoutGroup mode="horizontal">
           <FormYearItemStyled isSmallScreen={isSmallScreen} htmlFor="year_start" top="период">
-            <Input id="year_start" placeholder="1990" value={filters.year_start ?? ""} onChange={handleInputChange("year_start")} before={<TextInputStyled color="secondary">после:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
+            <Input id="year_start" placeholder="1990" value={currentFiltersContent.year_start ?? ""} onChange={handleInputChange("year_start")} before={<TextInputStyled color="secondary">после:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
           </FormYearItemStyled>
           <FormYearItemStyled isSmallScreen={isSmallScreen} htmlFor="year_end">
-            <Input id="year_end" placeholder="2025" value={filters.year_end ?? ""} onChange={handleInputChange("year_end")} before={<TextInputStyled>до:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
+            <Input id="year_end" placeholder="2025" value={currentFiltersContent.year_end ?? ""} onChange={handleInputChange("year_end")} before={<TextInputStyled>до:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
           </FormYearItemStyled>
         </FormLayoutGroup>
 
         <ConditionalContainer renderContainer={isSmallScreen} Container={ConditionalSmallViewFlexContainer}>
           <FormLayoutGroup mode="horizontal">
             <FormRatingItemStyled htmlFor="rating_min" top="рейтинг">
-              <Input id="rating_min" placeholder="0" value={filters.rating_min ?? ""} onChange={handleInputChange("rating_min")} before={<TextInputStyled>от:</TextInputStyled>} />
+              <Input id="rating_min" placeholder="0" value={currentFiltersContent.rating_min ?? ""} onChange={handleInputChange("rating_min")} before={<TextInputStyled>от:</TextInputStyled>} />
             </FormRatingItemStyled>
             <FormRatingItemStyled htmlFor="rating_max">
-              <Input id="rating_max" placeholder="5" value={filters.rating_max ?? ""} onChange={handleInputChange("rating_max")} before={<TextInputStyled>до:</TextInputStyled>} />
+              <Input id="rating_max" placeholder="5" value={currentFiltersContent.rating_max ?? ""} onChange={handleInputChange("rating_max")} before={<TextInputStyled>до:</TextInputStyled>} />
             </FormRatingItemStyled>
           </FormLayoutGroup>
           <FormButtonsAreaItemStyled>
-            <Button size="l" before={<Icon16Search />} />
+            <Button onClick={buttonClickHandler} size="l" before={<Icon16Search />} />
           </FormButtonsAreaItemStyled>
         </ConditionalContainer>
       </ConditionalContainer>
