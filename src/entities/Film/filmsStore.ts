@@ -6,6 +6,7 @@ class FilmStore {
   @observable films: IFilm[] = [];
   @observable genres: IGenre[] = [];
   @observable filters: IFilmFilters = {};
+  @observable page: number = 1;
 
   constructor() {
     makeAutoObservable(this);
@@ -23,8 +24,11 @@ class FilmStore {
 
   @action
   async getFilmsFromPage(page: number) {
+    this.page = page;
     const new_films = await filmsApi.getFilms(page, this.filters);
-    runInAction(() => (this.films = [...this.films, ...new_films]));
+    runInAction(() => {
+      this.films = [...this.films, ...new_films];
+    });
   }
 }
 

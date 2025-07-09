@@ -11,7 +11,6 @@ const App = () => {
   useEffect(() => {
     filmStore.setFilters(getFiltersFromParams());
     filmStore.getGenres();
-    filmStore.getFilmsFromPage(1);
   }, []);
 
   return (
