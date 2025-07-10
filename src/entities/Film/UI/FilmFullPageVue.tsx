@@ -12,6 +12,7 @@ import { useIsSmallScreen } from "../../../shared/useIsSmallScreen";
 const ContainerStyled = styled.div<{ $isSmallScreen: boolean }>`
   display: grid;
   gap: 10px;
+  padding: 10px;
   grid-template-columns: ${({ $isSmallScreen }) => ($isSmallScreen ? "1fr" : "400px 1fr")};
 `;
 
@@ -38,34 +39,34 @@ const FilmFullPageView = (film: IFilm) => {
   const isSmallScreen = useIsSmallScreen();
 
   return (
-    <>
-      <ContainerStyled $isSmallScreen={isSmallScreen}>
-        <div>
-          <BagdesAreaStyled>
-            <ContentBadge size="l">{film.year + " год"}</ContentBadge>
-            <ContentBadge size="l">
-              {film.rating.kp}
-              <ContentBadge.IconSlot>
-                <Icon16StarCircle />
-              </ContentBadge.IconSlot>
-            </ContentBadge>
-          </BagdesAreaStyled>
-          {isImageLoading && film?.poster?.url && <ImageStyled noBorder src={"/placeholder-image.svg"} alt={film.name} />}
-          <ImageStyled onLoad={() => setIsImageLoading(false)} noBorder src={film?.poster?.url ? film?.poster?.url : "/no-image.svg"} alt={film.name} />
-        </div>
-        <TextAreaStyled>
-          <Text>{film.name || film.alternativeName}</Text>
-          <Text>{film.description}</Text>
-          {film.premiere?.world && <Text>премьера: {dayjs(film.premiere.world).format("DD.MM.YYYY")}</Text>}
-          <GenresAreaStyled>
-            {film.genres.map((genre) => (
-              <ContentBadge key={genre.name}>{genre.name}</ContentBadge>
-            ))}
-          </GenresAreaStyled>
-        </TextAreaStyled>
-        <Button onClick={() => navigate("/")}>назад</Button>
-      </ContainerStyled>
-    </>
+    <ContainerStyled $isSmallScreen={isSmallScreen}>
+      <div>
+        <BagdesAreaStyled>
+          <ContentBadge size="l">{film.year + " год"}</ContentBadge>
+          <ContentBadge size="l">
+            {film.rating.kp}
+            <ContentBadge.IconSlot>
+              <Icon16StarCircle />
+            </ContentBadge.IconSlot>
+          </ContentBadge>
+        </BagdesAreaStyled>
+        {isImageLoading && film?.poster?.url && <ImageStyled noBorder src={"/placeholder-image.svg"} alt={film.name} />}
+        <ImageStyled onLoad={() => setIsImageLoading(false)} noBorder src={film?.poster?.url ? film?.poster?.url : "/no-image.svg"} alt={film.name} />
+      </div>
+      <TextAreaStyled>
+        <Text>{film.name || film.alternativeName}</Text>
+        <Text>{film.description}</Text>
+        {film.premiere?.world && <Text>премьера: {dayjs(film.premiere.world).format("DD.MM.YYYY")}</Text>}
+        <GenresAreaStyled>
+          {film.genres.map((genre) => (
+            <ContentBadge key={genre.name}>{genre.name}</ContentBadge>
+          ))}
+        </GenresAreaStyled>
+      </TextAreaStyled>
+      <Button size="l" onClick={() => navigate("/")}>
+        назад
+      </Button>
+    </ContainerStyled>
   );
 };
 

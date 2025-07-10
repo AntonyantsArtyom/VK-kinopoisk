@@ -6,12 +6,24 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
 import MoviePage from "./pages/MoviePage";
 
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    overflow-x: hidden;
+  }
+`;
+
 const App = () => {
   return (
     <ConfigProvider colorScheme="light">
       <AdaptivityProvider>
         <BrowserRouter>
           <AppRoot>
+            <GlobalStyle />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="movie/:id" element={<MoviePage />} />
