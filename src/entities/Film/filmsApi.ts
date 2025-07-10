@@ -1,9 +1,13 @@
 import { apiClient } from "../../shared/api";
-import type { IFilmFilters, IFilmsResponse, IGenre } from "./films.types";
+import type { IFilm, IFilmFilters, IFilmsResponse, IGenre } from "./films.types";
 
 export const filmsApi = {
   getGenres: async () => {
     return apiClient.get<IGenre[]>("v1/movie/possible-values-by-field?field=genres.name").then((res) => res.data);
+  },
+
+  getFilmById: async (id: string) => {
+    return apiClient.get<IFilm>(`v1.4/movie/${id}`).then((res) => res.data);
   },
 
   getFilms: async (page: number, filters: IFilmFilters) => {

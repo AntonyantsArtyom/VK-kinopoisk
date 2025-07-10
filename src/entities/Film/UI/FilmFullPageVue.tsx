@@ -1,0 +1,73 @@
+import { observer } from "mobx-react-lite";
+import { ContentBadge, Text, Image, Button } from "@vkontakte/vkui";
+import type { IFilm } from "../films.types";
+import styled from "styled-components";
+import { useState } from "react";
+import { BagdesAreaStyled } from "./styles";
+import { Icon16StarCircle } from "@vkontakte/icons";
+import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
+import { useIsSmallScreen } from "../../../shared/useIsSmallScreen";
+
+const ContainerStyled = styled.div<{ $isSmallScreen: boolean }>`
+  display: grid;
+  padding: 5px;
+  gap: 10px;
+  grid-template-columns: ${({ $isSmallScreen }) => ($isSmallScreen ? "1fr" : "400px 1fr")};
+`;
+
+const ImageStyled = styled(Image).attrs({
+  heightSize: "100%",
+  widthSize: "100%",
+})``;
+
+const TextAreaStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const GenresAreaStyled = styled.div`
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+`;
+
+const FilmFullPageView = (film: IFilm) => {
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  const navigate = useNavigate();
+  const isSmallScreen = useIsSmallScreen();
+
+  return (
+    <>
+      <ContainerStyled $isSmallScreen={isSmallScreen}>
+        <div>
+          <BagdesAreaStyled>
+            <ContentBadge size="l">{film.year + " год"}</ContentBadge>
+            <ContentBadge size="l">
+              {film.rating.kp}
+              <ContentBadge.IconSlot>
+                <Icon16StarCircle />
+              </ContentBadge.IconSlot>
+            </ContentBadge>
+          </BagdesAreaStyled>
+          {isImageLoading && film?.poster?.url && <ImageStyled noBorder src={"/placeholder-image.svg"} alt={film.name} />}
+          <ImageStyled onLoad={() => setIsImageLoading(false)} noBorder src={film?.poster?.url ? film?.poster?.url : "/no-image.svg"} alt={film.name} />
+        </div>
+        <TextAreaStyled>
+          <Text>{film.name || film.alternativeName}</Text>
+          <Text>{film.description}</Text>
+          {film.premiere?.world && <Text>премьера: {dayjs(film.premiere.world).format("DD.MM.YYYY")}</Text>}
+          <GenresAreaStyled>
+            {film.genres.map((genre) => (
+              <ContentBadge key={genre.name}>{genre.name}</ContentBadge>
+            ))}
+          </GenresAreaStyled>
+        </TextAreaStyled>
+        <Button onClick={() => navigate("/")}>назад</Button>
+      </ContainerStyled>
+    </>
+  );
+};
+
+export default observer(FilmFullPageView);

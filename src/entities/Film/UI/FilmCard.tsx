@@ -3,6 +3,8 @@ import type { IFilm } from "../films.types";
 import styled from "styled-components";
 import { Icon16StarCircle } from "@vkontakte/icons";
 import { useState } from "react";
+import { BagdesAreaStyled } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 const CardStyled = styled(Card)`
   overflow: hidden;
@@ -16,15 +18,6 @@ const CardStyled = styled(Card)`
 
 const ImageAreaStyled = styled.div`
   position: relative;
-`;
-
-const BagdesAreaStyled = styled.div`
-  padding-left: 10px;
-  padding-top: 10px;
-  z-index: 10;
-  position: absolute;
-  display: flex;
-  gap: 5px;
 `;
 
 const ImageStyled = styled(Image).attrs({
@@ -43,9 +36,10 @@ const ConditionalHideContainer = styled.div<{ hide: boolean }>`
 
 const FilmCard = (film: IFilm) => {
   const [isImageLoading, setIsImageLoading] = useState(true);
+  const navigate = useNavigate();
 
   return (
-    <CardStyled>
+    <CardStyled onClick={() => navigate("/movie/" + film.id)}>
       <ImageAreaStyled>
         <BagdesAreaStyled>
           <ContentBadge size="l">{film.year + " год"}</ContentBadge>

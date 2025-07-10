@@ -8,7 +8,6 @@ export interface IFilmFilters {
 
 export interface IGenre {
   name: string;
-  slug: string;
 }
 
 interface IRating {
@@ -20,13 +19,20 @@ interface IPoster {
   previewUrl: string;
 }
 
+interface IPremiere {
+  world: string;
+}
+
 export interface IFilm {
   id: string;
   name?: string;
   alternativeName?: string;
+  description?: string;
   year: number;
   rating: IRating;
-  poster: IPoster;
+  poster?: IPoster;
+  premiere?: IPremiere;
+  genres: IGenre[];
 }
 
 export interface IFilmsResponse {
