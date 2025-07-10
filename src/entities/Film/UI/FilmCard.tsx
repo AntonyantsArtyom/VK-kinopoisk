@@ -1,8 +1,8 @@
 import { Card, ContentBadge, Text, Image } from "@vkontakte/vkui";
 import type { IFilm } from "../films.types";
 import styled from "styled-components";
-import { Icon16StarCircle, Icon28ThumbsUpOutline } from "@vkontakte/icons";
-import { useState } from "react";
+import { Icon16StarCircle, Icon28ThumbsUp, Icon28ThumbsUpOutline } from "@vkontakte/icons";
+import { useState, type MouseEventHandler } from "react";
 import { BagdesAreaStyled } from "./styles";
 import { useNavigate } from "react-router-dom";
 
@@ -39,8 +39,26 @@ const LikeBadgeStyled = styled(ContentBadge)`
 `;
 
 const FilmCard = (film: IFilm) => {
+  const checkIsFavorite = () => localStorage.getItem("favorites")?.includes(film.id);
+
   const [isImageLoading, setIsImageLoading] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(checkIsFavorite());
   const navigate = useNavigate();
+
+  const likeButtonClickHandler: MouseEventHandler<HTMLDivElement> = (e) => {
+    e.stopPropagation();
+
+    const favorites: string[] = JSON.parse(localStorage.getItem("favorites") || "[]");
+    const isFavorite = favorites.includes(film.id);
+
+    if (isFavorite) {
+      localStorage.setItem("favorites", JSON.stringify(favorites.filter((id) => id !== film.id)));
+    } else {
+      localStorage.setItem("favorites", JSON.stringify([...favorites, film.id]));
+    }
+
+    setIsFavorite(!isFavorite);
+  };
 
   return (
     <CardStyled onClick={() => navigate("/movie/" + film.id)}>
@@ -53,10 +71,8 @@ const FilmCard = (film: IFilm) => {
               <Icon16StarCircle />
             </ContentBadge.IconSlot>
           </ContentBadge>
-          <LikeBadgeStyled size="l">
-            <ContentBadge.IconSlot>
-              <Icon28ThumbsUpOutline />
-            </ContentBadge.IconSlot>
+          <LikeBadgeStyled size="l" onClick={likeButtonClickHandler}>
+            <ContentBadge.IconSlot>{isFavorite ? <Icon28ThumbsUp /> : <Icon28ThumbsUpOutline />}</ContentBadge.IconSlot>
           </LikeBadgeStyled>
         </BagdesAreaStyled>
         {isImageLoading && film?.poster?.url && <ImageStyled noBorder src={"/placeholder-image.svg"} alt={film.name} />}
