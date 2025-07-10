@@ -1,25 +1,14 @@
-import { useEffect } from "react";
-import { filmStore } from "./entities/Film/filmsStore";
-import FilmsList from "./entities/Film/UI/FilmsList";
-import FilmsFilter from "./features/FilmsFilter/UI/FilmsFilter";
 import { observer } from "mobx-react-lite";
 
 import { AdaptivityProvider, AppRoot, ConfigProvider } from "@vkontakte/vkui";
-import getFiltersFromParams from "./features/FilmsFilter/helpers/getFiltersFromParams";
+import HomePage from "./pages/HomePage";
 
 const App = () => {
-  useEffect(() => {
-    filmStore.setFilters(getFiltersFromParams());
-    filmStore.getFilmsFromPage(1);
-    filmStore.getGenres();
-  }, []);
-
   return (
     <ConfigProvider colorScheme="light">
       <AdaptivityProvider>
         <AppRoot>
-          <FilmsFilter />
-          <FilmsList />
+          <HomePage />
         </AppRoot>
       </AdaptivityProvider>
     </ConfigProvider>
