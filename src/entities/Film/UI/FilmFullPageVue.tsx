@@ -11,7 +11,6 @@ import { useIsSmallScreen } from "../../../shared/useIsSmallScreen";
 
 const ContainerStyled = styled.div<{ $isSmallScreen: boolean }>`
   display: grid;
-  padding: 5px;
   gap: 10px;
   grid-template-columns: ${({ $isSmallScreen }) => ($isSmallScreen ? "1fr" : "400px 1fr")};
 `;

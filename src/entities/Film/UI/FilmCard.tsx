@@ -1,7 +1,7 @@
 import { Card, ContentBadge, Text, Image } from "@vkontakte/vkui";
 import type { IFilm } from "../films.types";
 import styled from "styled-components";
-import { Icon16StarCircle } from "@vkontakte/icons";
+import { Icon16StarCircle, Icon28ThumbsUpOutline } from "@vkontakte/icons";
 import { useState } from "react";
 import { BagdesAreaStyled } from "./styles";
 import { useNavigate } from "react-router-dom";
@@ -34,6 +34,10 @@ const ConditionalHideContainer = styled.div<{ hide: boolean }>`
   overflow: hidden;
 `;
 
+const LikeBadgeStyled = styled(ContentBadge)`
+  margin-left: auto;
+`;
+
 const FilmCard = (film: IFilm) => {
   const [isImageLoading, setIsImageLoading] = useState(true);
   const navigate = useNavigate();
@@ -49,6 +53,11 @@ const FilmCard = (film: IFilm) => {
               <Icon16StarCircle />
             </ContentBadge.IconSlot>
           </ContentBadge>
+          <LikeBadgeStyled size="l">
+            <ContentBadge.IconSlot>
+              <Icon28ThumbsUpOutline />
+            </ContentBadge.IconSlot>
+          </LikeBadgeStyled>
         </BagdesAreaStyled>
         {isImageLoading && film?.poster?.url && <ImageStyled noBorder src={"/placeholder-image.svg"} alt={film.name} />}
         <ConditionalHideContainer hide={isImageLoading}>
