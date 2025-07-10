@@ -1,4 +1,4 @@
-import { observable, action, makeAutoObservable, runInAction, get } from "mobx";
+import { observable, action, makeAutoObservable, runInAction } from "mobx";
 import { filmsApi } from "./filmsApi";
 import type { IFilm, IFilmFilters, IGenre } from "./films.types";
 
