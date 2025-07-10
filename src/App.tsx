@@ -2,14 +2,20 @@ import { observer } from "mobx-react-lite";
 
 import { AdaptivityProvider, AppRoot, ConfigProvider } from "@vkontakte/vkui";
 import HomePage from "./pages/HomePage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
   return (
     <ConfigProvider colorScheme="light">
       <AdaptivityProvider>
-        <AppRoot>
-          <HomePage />
-        </AppRoot>
+        <BrowserRouter>
+          <AppRoot>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="*" element={<div>Not found</div>} />
+            </Routes>
+          </AppRoot>
+        </BrowserRouter>
       </AdaptivityProvider>
     </ConfigProvider>
   );
