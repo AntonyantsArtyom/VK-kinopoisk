@@ -5,6 +5,7 @@ import { Icon16StarCircle, Icon28ThumbsUp, Icon28ThumbsUpOutline } from "@vkonta
 import { useState, type MouseEventHandler } from "react";
 import { BagdesAreaStyled } from "./styles";
 import { useNavigate } from "react-router-dom";
+import { confirmModalStore } from "../../../shared/ConfirmModalStore";
 
 const CardStyled = styled(Card)`
   overflow: hidden;
@@ -51,13 +52,15 @@ const FilmCard = (film: IFilm) => {
     const favorites: string[] = JSON.parse(localStorage.getItem("favorites") || "[]");
     const isFavorite = favorites.includes(film.id);
 
-    if (isFavorite) {
-      localStorage.setItem("favorites", JSON.stringify(favorites.filter((id) => id !== film.id)));
-    } else {
-      localStorage.setItem("favorites", JSON.stringify([...favorites, film.id]));
-    }
+    confirmModalStore.openModalWithText(isFavorite ? "Удалить из избранного?" : "Добавить в избранное?", () => {
+      if (isFavorite) {
+        localStorage.setItem("favorites", JSON.stringify(favorites.filter((id) => id !== film.id)));
+      } else {
+        localStorage.setItem("favorites", JSON.stringify([...favorites, film.id]));
+      }
 
-    setIsFavorite(!isFavorite);
+      setIsFavorite(!isFavorite);
+    });
   };
 
   return (

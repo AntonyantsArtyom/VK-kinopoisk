@@ -7,10 +7,14 @@ import ErrorPage from "./pages/ErrorPage";
 import MoviePage from "./pages/MoviePage";
 
 import { createGlobalStyle } from "styled-components";
+import ConfirmModal from "./shared/ConfirmModal";
 
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
+  }
+  html{
+    overflow-y: auto !important;
   }
   body {
     overflow-x: hidden;
@@ -29,6 +33,7 @@ const App = () => {
               <Route path="movie/:id" element={<MoviePage />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>
+            <ConfirmModal />
           </AppRoot>
         </BrowserRouter>
       </AdaptivityProvider>
