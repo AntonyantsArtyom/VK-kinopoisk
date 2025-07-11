@@ -7,7 +7,7 @@ import ErrorPage from "./pages/ErrorPage";
 import MoviePage from "./pages/MoviePage";
 
 import { createGlobalStyle } from "styled-components";
-import ConfirmModal from "./shared/ConfirmModal";
+import ConfirmModal from "./shared/ConfirmModal/ConfirmModal";
 
 const GlobalStyle = createGlobalStyle`
   * {

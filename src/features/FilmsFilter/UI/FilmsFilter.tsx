@@ -1,8 +1,8 @@
 import { Icon16Search } from "@vkontakte/icons";
 import { Button, Chip, ChipsSelect, CustomSelectOption, FormItem, FormLayoutGroup, Input, Text, type ChipOption } from "@vkontakte/vkui";
 import styled from "styled-components";
-import { useIsLargeScreen } from "../../../shared/useIsLargeScreen";
-import { useIsSmallScreen } from "../../../shared/useIsSmallScreen";
+import { useIsLargeScreen } from "../../../shared/hooks/useIsLargeScreen";
+import { useIsSmallScreen } from "../../../shared/hooks/useIsSmallScreen";
 import { ConditionalContainer } from "../../../shared/ConditionalContainer";
 import { filmStore } from "../../../entities/Film/filmsStore";
 import { observer } from "mobx-react-lite";

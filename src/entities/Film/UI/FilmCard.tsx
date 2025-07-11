@@ -5,7 +5,7 @@ import { Icon16StarCircle, Icon28ThumbsUp, Icon28ThumbsUpOutline } from "@vkonta
 import { useState, type MouseEventHandler } from "react";
 import { BagdesAreaStyled } from "./reusedStyles";
 import { useNavigate } from "react-router-dom";
-import { confirmModalStore } from "../../../shared/ConfirmModalStore";
+import { confirmModalStore } from "../../../shared/ConfirmModal/ConfirmModalStore";
 import { filmStore } from "../filmsStore";
 
 const FilmCard = ({ film, onlyFavorites }: { film: IFilm; onlyFavorites?: boolean }) => {

@@ -7,7 +7,7 @@ import { BagdesAreaStyled } from "./reusedStyles";
 import { Icon16StarCircle } from "@vkontakte/icons";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
-import { useIsSmallScreen } from "../../../shared/useIsSmallScreen";
+import { useIsSmallScreen } from "../../../shared/hooks/useIsSmallScreen";
 
 const FilmFullPageView = (film: IFilm) => {
   const [isImageLoading, setIsImageLoading] = useState(true);
