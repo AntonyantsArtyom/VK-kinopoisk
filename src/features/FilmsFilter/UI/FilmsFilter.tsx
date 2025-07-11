@@ -171,7 +171,7 @@ function FilmsFilter({ onlyFavorites }: { onlyFavorites?: boolean }) {
             <Input id="year_start" placeholder="1990" value={currentFiltersContent.year_start ?? ""} onChange={handleInputChange("year_start")} before={<TextInputStyled color="secondary">после:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
           </FormYearItemStyled>
           <FormYearItemStyled isSmallScreen={isSmallScreen} htmlFor="year_end">
-            <Input id="year_end" placeholder="2025" value={currentFiltersContent.year_end ?? ""} onChange={handleInputChange("year_end")} before={<TextInputStyled>до:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
+            <Input id="year_end" placeholder={new Date().getFullYear().toString()} value={currentFiltersContent.year_end ?? ""} onChange={handleInputChange("year_end")} before={<TextInputStyled>до:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
           </FormYearItemStyled>
         </FormLayoutGroup>
 
@@ -181,7 +181,7 @@ function FilmsFilter({ onlyFavorites }: { onlyFavorites?: boolean }) {
               <Input id="rating_min" placeholder="0" value={currentFiltersContent.rating_min ?? ""} onChange={handleInputChange("rating_min")} before={<TextInputStyled>от:</TextInputStyled>} />
             </FormRatingItemStyled>
             <FormRatingItemStyled htmlFor="rating_max">
-              <Input id="rating_max" placeholder="5" value={currentFiltersContent.rating_max ?? ""} onChange={handleInputChange("rating_max")} before={<TextInputStyled>до:</TextInputStyled>} />
+              <Input id="rating_max" placeholder="10" value={currentFiltersContent.rating_max ?? ""} onChange={handleInputChange("rating_max")} before={<TextInputStyled>до:</TextInputStyled>} />
             </FormRatingItemStyled>
           </FormLayoutGroup>
           <FormButtonsAreaItemStyled>
