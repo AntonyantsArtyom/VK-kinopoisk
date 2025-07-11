@@ -162,4 +162,4 @@ Please change the parent <Route path="${R}"> to <Route path="${R==="/"?"*":`${R}
     overflow-y: auto !important;
     overflow-x: hidden;
   }
-`,tL=()=>O.jsx(gD,{colorScheme:"light",children:O.jsx(vD,{children:O.jsx(cj,{children:O.jsxs(JA,{children:[O.jsx(eL,{}),O.jsxs(P4,{children:[O.jsx(Zo,{path:"/",element:O.jsx(Fb,{})}),O.jsx(Zo,{path:"/favorites",element:O.jsx(Fb,{onlyFavorites:!0})}),O.jsx(Zo,{path:"movie/:id",element:O.jsx(Qj,{})}),O.jsx(Zo,{path:"*",element:O.jsx(Hj,{})})]}),O.jsx(Wj,{})]})})})}),nL=pa(tL);zC.createRoot(document.getElementById("root")).render(O.jsx(nL,{}));
+`,tL=()=>O.jsx(gD,{colorScheme:"light",children:O.jsx(vD,{children:O.jsx(cj,{basename:"/VK-kinopoisk",children:O.jsxs(JA,{children:[O.jsx(eL,{}),O.jsxs(P4,{children:[O.jsx(Zo,{path:"/",element:O.jsx(Fb,{})}),O.jsx(Zo,{path:"/favorites",element:O.jsx(Fb,{onlyFavorites:!0})}),O.jsx(Zo,{path:"movie/:id",element:O.jsx(Qj,{})}),O.jsx(Zo,{path:"*",element:O.jsx(Hj,{})})]}),O.jsx(Wj,{})]})})})}),nL=pa(tL);zC.createRoot(document.getElementById("root")).render(O.jsx(nL,{}));
