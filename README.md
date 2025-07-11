@@ -1,5 +1,13 @@
-для запуска локально:
-npm i + npm run dev
+# VK-Kinopoisk
 
-дополнительно:
-прод-версия выложена на gh-page
+## 🔧 Локальный запуск
+
+```bash
+npm install
+npm run dev
+```
+
+## 📎 Дополнительно
+GH-page
+https://antonyantsartyom.github.io/VK-kinopoisk/
+
