@@ -1,4 +1,4 @@
-import { Icon16Search } from "@vkontakte/icons";
+import { Icon16Search, Icon20FireAltOutline } from "@vkontakte/icons";
 import { Button, Chip, ChipsSelect, CustomSelectOption, FormItem, FormLayoutGroup, Input, Text, type ChipOption } from "@vkontakte/vkui";
 import styled from "styled-components";
 import { useIsLargeScreen } from "../../../shared/hooks/useIsLargeScreen";
@@ -137,8 +137,8 @@ function FilmsFilter({ onlyFavorites }: { onlyFavorites?: boolean }) {
             </FormRatingItemStyled>
           </FormLayoutGroup>
           <FormButtonsAreaItemStyled>
-            <Button onClick={favoritesButtonClickHandler} size="l">
-              Избранное
+            <Button onClick={favoritesButtonClickHandler} size="l" before={isSmallScreen && <Icon20FireAltOutline />}>
+              {!isSmallScreen && "Избранное"}
             </Button>
             <Button onClick={searchButtonClickHandler} size="l" before={<Icon16Search />} />
           </FormButtonsAreaItemStyled>
