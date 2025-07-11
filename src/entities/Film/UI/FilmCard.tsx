@@ -6,8 +6,9 @@ import { useState, type MouseEventHandler } from "react";
 import { BagdesAreaStyled } from "./reusedStyles";
 import { useNavigate } from "react-router-dom";
 import { confirmModalStore } from "../../../shared/ConfirmModalStore";
+import { filmStore } from "../filmsStore";
 
-const FilmCard = (film: IFilm) => {
+const FilmCard = ({ film, onlyFavorites }: { film: IFilm; onlyFavorites?: boolean }) => {
   const checkIsFavorite = () => localStorage.getItem("favorites")?.includes(film.id);
 
   const [isImageLoading, setIsImageLoading] = useState(true);
@@ -23,6 +24,9 @@ const FilmCard = (film: IFilm) => {
     confirmModalStore.openModalWithText(isFavorite ? "Удалить из избранного?" : "Добавить в избранное?", () => {
       if (isFavorite) {
         localStorage.setItem("favorites", JSON.stringify(favorites.filter((id) => id !== film.id)));
+        if (onlyFavorites) {
+          filmStore.deleteFilmFromList(film.id);
+        }
       } else {
         localStorage.setItem("favorites", JSON.stringify([...favorites, film.id]));
       }

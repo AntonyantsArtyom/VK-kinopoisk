@@ -17,6 +17,10 @@ class FilmStore {
     this.films = [];
   }
 
+  deleteFilmFromList(id: string) {
+    this.films = this.films.filter((film) => film.id !== id);
+  }
+
   async setFilters(filters: IFilmFilters) {
     this.page = 1;
     this.films = [];

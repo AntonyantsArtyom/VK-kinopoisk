@@ -40,7 +40,7 @@ function FilmsList({ onlyFavorites }: { onlyFavorites?: boolean }) {
   return (
     <SimpleGrid minColWidth={300} gap="m" margin="auto">
       {filmStore.films.map((film) => (
-        <FilmCard key={film.id} {...film} />
+        <FilmCard key={film.id} film={film} onlyFavorites={onlyFavorites} />
       ))}
       <div ref={loaderRef} />
     </SimpleGrid>
