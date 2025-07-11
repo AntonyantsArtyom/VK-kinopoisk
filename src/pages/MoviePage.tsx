@@ -10,7 +10,7 @@ const MoviePage = () => {
 
   useEffect(() => {
     const url = window.location.pathname;
-    const filmId = url.split("/")[2];
+    const filmId = url.split("/").at(-1);
     if (filmId) {
       filmsApi.getFilmById(filmId).then((film) => setFilm(film));
     }
