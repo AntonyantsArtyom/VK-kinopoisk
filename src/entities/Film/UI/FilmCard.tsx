@@ -1,5 +1,5 @@
 import { Card, ContentBadge, Text, Image } from "@vkontakte/vkui";
-import type { IFilm } from "../films.types";
+import type { IFilm } from "../filmsTypes";
 import styled from "styled-components";
 import { Icon16StarCircle, Icon28ThumbsUp, Icon28ThumbsUpOutline } from "@vkontakte/icons";
 import { useState, type MouseEventHandler } from "react";

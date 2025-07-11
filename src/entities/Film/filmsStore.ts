@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { filmsApi } from "./filmsApi";
-import type { IFilm, IFilmFilters, IGenre } from "./films.types";
+import type { IFilm, IFilmFilters, IGenre } from "./filmsTypes";
 
 class FilmStore {
   films: IFilm[] = [];

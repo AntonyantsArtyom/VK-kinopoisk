@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { filmsApi } from "../entities/Film/filmsApi";
 import { observer } from "mobx-react-lite";
-import type { IFilm } from "../entities/Film/films.types";
+import type { IFilm } from "../entities/Film/filmsTypes";
 import FilmFullPageVue from "../entities/Film/UI/FilmFullPageVue";
 import { Spinner } from "@vkontakte/vkui";
 

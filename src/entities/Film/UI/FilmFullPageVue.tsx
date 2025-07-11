@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { ContentBadge, Text, Image, Button } from "@vkontakte/vkui";
-import type { IFilm } from "../films.types";
+import type { IFilm } from "../filmsTypes";
 import styled from "styled-components";
 import { useState } from "react";
 import { BagdesAreaStyled } from "./reusedStyles";

@@ -8,7 +8,7 @@ import { filmStore } from "../../../entities/Film/filmsStore";
 import { observer } from "mobx-react-lite";
 
 import { useEffect, useState } from "react";
-import type { IFilmFilters } from "../../../entities/Film/films.types";
+import type { IFilmFilters } from "../../../entities/Film/filmsTypes";
 import setFiltersToParams from "../helpers/setFiltersToParams";
 import getFiltersFromParams from "../helpers/getFiltersFromParams";
 import { useNavigate } from "react-router-dom";

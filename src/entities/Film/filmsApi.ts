@@ -1,5 +1,5 @@
 import { apiClient } from "../../shared/api";
-import type { IFilm, IFilmFilters, IFilmsResponse, IGenre } from "./films.types";
+import type { IFilm, IFilmFilters, IFilmsResponse, IGenre } from "./filmsTypes";
 
 export const filmsApi = {
   getGenres: async () => {

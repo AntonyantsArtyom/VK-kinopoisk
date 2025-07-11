@@ -1,4 +1,4 @@
-import type { IFilmFilters } from "../../../entities/Film/films.types";
+import type { IFilmFilters } from "../../../entities/Film/filmsTypes";
 
 const getFiltersFromParams = (): IFilmFilters => {
   const params = new URLSearchParams(window.location.search);
