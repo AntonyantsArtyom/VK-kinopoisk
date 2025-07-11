@@ -15,8 +15,6 @@ const GlobalStyle = createGlobalStyle`
   }
   html{
     overflow-y: auto !important;
-  }
-  body {
     overflow-x: hidden;
   }
 `;
