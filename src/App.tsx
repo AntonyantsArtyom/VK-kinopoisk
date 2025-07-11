@@ -28,6 +28,7 @@ const App = () => {
             <GlobalStyle />
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/favorites" element={<HomePage onlyFavorites />} />
               <Route path="movie/:id" element={<MoviePage />} />
               <Route path="*" element={<ErrorPage />} />
             </Routes>

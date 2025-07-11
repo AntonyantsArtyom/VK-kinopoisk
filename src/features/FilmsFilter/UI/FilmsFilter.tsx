@@ -39,6 +39,7 @@ const FormButtonsAreaItemStyled = styled(FormItem)`
     justify-self: flex-end;
     align-self: flex-end;
     margin-left: auto;
+    gap: 5px;
   }
 `;
 
@@ -58,10 +59,12 @@ import { useEffect, useState } from "react";
 import type { IFilmFilters } from "../../../entities/Film/films.types";
 import setFiltersToParams from "../helpers/setFiltersToParams";
 import getFiltersFromParams from "../helpers/getFiltersFromParams";
+import { useNavigate } from "react-router-dom";
 
-function FilmsFilter() {
+function FilmsFilter({ onlyFavorites }: { onlyFavorites?: boolean }) {
   const isLargeScreen = useIsLargeScreen();
   const isSmallScreen = useIsSmallScreen();
+  const navigate = useNavigate();
 
   const [currentFiltersContent, setCurrentFiltersContent] = useState<IFilmFilters>({
     year_start: undefined,
@@ -109,11 +112,31 @@ function FilmsFilter() {
     filmStore.setFilters(currentFiltersContent);
   }, []);
 
-  const buttonClickHandler = () => {
+  const searchButtonClickHandler = () => {
     filmStore.setFilters(currentFiltersContent);
     setFiltersToParams(currentFiltersContent);
     filmStore.getFilmsFromPage(1);
   };
+
+  const favoritesButtonClickHandler = () => {
+    if (onlyFavorites) {
+      navigate("/");
+    } else {
+      navigate("/favorites");
+    }
+  };
+
+  if (onlyFavorites) {
+    return (
+      <FormStyled isLargeScreen={isLargeScreen} onSubmit={(e) => e.preventDefault()}>
+        <FormButtonsAreaItemStyled>
+          <Button onClick={favoritesButtonClickHandler} size="l">
+            Вернуться ко всем фильмам
+          </Button>
+        </FormButtonsAreaItemStyled>
+      </FormStyled>
+    );
+  }
 
   return (
     <FormStyled isLargeScreen={isLargeScreen} onSubmit={(e) => e.preventDefault()}>
@@ -162,7 +185,10 @@ function FilmsFilter() {
             </FormRatingItemStyled>
           </FormLayoutGroup>
           <FormButtonsAreaItemStyled>
-            <Button onClick={buttonClickHandler} size="l" before={<Icon16Search />} />
+            <Button onClick={favoritesButtonClickHandler} size="l">
+              Избранное
+            </Button>
+            <Button onClick={searchButtonClickHandler} size="l" before={<Icon16Search />} />
           </FormButtonsAreaItemStyled>
         </ConditionalContainer>
       </ConditionalContainer>

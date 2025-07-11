@@ -5,8 +5,9 @@ import getFiltersFromParams from "../features/FilmsFilter/helpers/getFiltersFrom
 import FilmsFilter from "../features/FilmsFilter/UI/FilmsFilter";
 import { observer } from "mobx-react-lite";
 
-const HomePage = () => {
+const HomePage = ({ onlyFavorites }: { onlyFavorites?: boolean }) => {
   useEffect(() => {
+    if (onlyFavorites) return;
     filmStore.setFilters(getFiltersFromParams());
     filmStore.getFilmsFromPage(1);
     filmStore.getGenres();
@@ -14,7 +15,7 @@ const HomePage = () => {
 
   return (
     <>
-      <FilmsFilter />
+      <FilmsFilter onlyFavorites={onlyFavorites} />
       <FilmsList />
     </>
   );

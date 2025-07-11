@@ -4,7 +4,7 @@ export const useIsLargeScreen = () => {
   const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 1000px)");
+    const mediaQuery = window.matchMedia("(min-width: 1100px)");
     setIsLargeScreen(mediaQuery.matches);
     const listener = (event: MediaQueryListEvent) => setIsLargeScreen(event.matches);
     mediaQuery.addEventListener("change", listener);
