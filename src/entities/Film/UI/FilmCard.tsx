@@ -68,7 +68,7 @@ const CardStyled = styled(Card)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  min-height: 200px;
   padding-bottom: 10px;
 `;
 
