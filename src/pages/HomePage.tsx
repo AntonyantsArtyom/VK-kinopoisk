@@ -7,16 +7,22 @@ import { observer } from "mobx-react-lite";
 
 const HomePage = ({ onlyFavorites }: { onlyFavorites?: boolean }) => {
   useEffect(() => {
-    if (onlyFavorites) return;
+    filmStore.clearFilms();
+
+    if (onlyFavorites) {
+      filmStore.getFilmsWithIds(1, JSON.parse(localStorage.getItem("favorites") || "[]"));
+      return;
+    }
     filmStore.setFilters(getFiltersFromParams());
     filmStore.getFilmsFromPage(1);
     filmStore.getGenres();
-  }, []);
+  }, [onlyFavorites]);
 
   return (
     <>
+      {}
       <FilmsFilter onlyFavorites={onlyFavorites} />
-      <FilmsList />
+      <FilmsList onlyFavorites={onlyFavorites} />
     </>
   );
 };

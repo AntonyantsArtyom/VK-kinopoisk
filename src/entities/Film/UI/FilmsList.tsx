@@ -4,7 +4,7 @@ import FilmCard from "./FilmCard";
 import { SimpleGrid } from "@vkontakte/vkui";
 import { useEffect, useRef } from "react";
 
-function FilmsList() {
+function FilmsList({ onlyFavorites }: { onlyFavorites?: boolean }) {
   const loaderRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -17,6 +17,10 @@ function FilmsList() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && filmStore.films.length !== 0 && filmStore.films.length % 50 === 0) {
+          if (onlyFavorites) {
+            filmStore.getFilmsWithIds(filmStore.page + 1, JSON.parse(localStorage.getItem("favorites") || "[]"));
+            return;
+          }
           filmStore.getFilmsFromPage(filmStore.page + 1);
         }
       });

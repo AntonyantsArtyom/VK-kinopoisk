@@ -13,6 +13,12 @@ class FilmStore {
   }
 
   @action
+  clearFilms() {
+    this.page = 1;
+    this.films = [];
+  }
+
+  @action
   async setFilters(filters: IFilmFilters) {
     this.page = 1;
     this.films = [];
@@ -28,6 +34,16 @@ class FilmStore {
   async getFilmsFromPage(page: number) {
     this.page = page;
     const new_films = await filmsApi.getFilms(page, this.filters);
+    runInAction(() => {
+      this.films = [...this.films, ...new_films];
+    });
+  }
+
+  @action
+  async getFilmsWithIds(page: number, ids: string[]) {
+    this.page = page;
+    const limit = 50;
+    const new_films = await filmsApi.getFilmsWithIds(ids.slice(page - 1, limit));
     runInAction(() => {
       this.films = [...this.films, ...new_films];
     });

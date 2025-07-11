@@ -3,41 +3,9 @@ import type { IFilm } from "../films.types";
 import styled from "styled-components";
 import { Icon16StarCircle, Icon28ThumbsUp, Icon28ThumbsUpOutline } from "@vkontakte/icons";
 import { useState, type MouseEventHandler } from "react";
-import { BagdesAreaStyled } from "./styles";
+import { BagdesAreaStyled } from "./reusedStyles";
 import { useNavigate } from "react-router-dom";
 import { confirmModalStore } from "../../../shared/ConfirmModalStore";
-
-const CardStyled = styled(Card)`
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  padding-bottom: 10px;
-`;
-
-const ImageAreaStyled = styled.div`
-  position: relative;
-`;
-
-const ImageStyled = styled(Image).attrs({
-  widthSize: "100%",
-  heightSize: "100%",
-})``;
-
-const NameStyled = styled(Text)`
-  padding: 5px 10px;
-`;
-
-const ConditionalHideContainer = styled.div<{ hide: boolean }>`
-  max-height: ${({ hide }) => (hide ? "0" : "unset")};
-  overflow: hidden;
-`;
-
-const LikeBadgeStyled = styled(ContentBadge)`
-  margin-left: auto;
-`;
 
 const FilmCard = (film: IFilm) => {
   const checkIsFavorite = () => localStorage.getItem("favorites")?.includes(film.id);
@@ -89,3 +57,35 @@ const FilmCard = (film: IFilm) => {
 };
 
 export default FilmCard;
+
+const CardStyled = styled(Card)`
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding-bottom: 10px;
+`;
+
+const ImageAreaStyled = styled.div`
+  position: relative;
+`;
+
+const ImageStyled = styled(Image).attrs({
+  widthSize: "100%",
+  heightSize: "100%",
+})``;
+
+const NameStyled = styled(Text)`
+  padding: 5px 10px;
+`;
+
+const ConditionalHideContainer = styled.div<{ hide: boolean }>`
+  max-height: ${({ hide }) => (hide ? "0" : "unset")};
+  overflow: hidden;
+`;
+
+const LikeBadgeStyled = styled(ContentBadge)`
+  margin-left: auto;
+`;

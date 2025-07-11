@@ -10,6 +10,12 @@ export const filmsApi = {
     return apiClient.get<IFilm>(`v1.4/movie/${id}`).then((res) => res.data);
   },
 
+  getFilmsWithIds: async (ids: string[]) => {
+    const limit = 50;
+    const query = ids.map((id) => `id=${id}`).join("&") + `&limit=${limit}`;
+    return apiClient.get<IFilmsResponse>(`v1.4/movie?${query}`).then((res) => res.data.docs);
+  },
+
   getFilms: async (page: number, filters: IFilmFilters) => {
     const limit = 50;
     const query: string[] = [];
