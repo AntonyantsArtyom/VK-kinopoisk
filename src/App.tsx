@@ -23,7 +23,7 @@ const App = () => {
   return (
     <ConfigProvider colorScheme="light">
       <AdaptivityProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/VK-kinopoisk">
           <AppRoot>
             <GlobalStyle />
             <Routes>
