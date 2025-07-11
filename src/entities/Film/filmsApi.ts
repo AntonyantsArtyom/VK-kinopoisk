@@ -10,14 +10,14 @@ export const filmsApi = {
     return apiClient.get<IFilm>(`v1.4/movie/${id}`).then((res) => res.data);
   },
 
-  getFilmsWithIds: async (ids: string[]) => {
+  getFilmsWithIds: async (ids: string[], signal?: AbortSignal) => {
     if (ids.length === 0) return [];
     const limit = 50;
     const query = ids.map((id) => `id=${id}`).join("&") + `&limit=${limit}`;
-    return apiClient.get<IFilmsResponse>(`v1.4/movie?${query}`).then((res) => res.data.docs);
+    return apiClient.get<IFilmsResponse>(`v1.4/movie?${query}`, { signal }).then((res) => res.data.docs);
   },
 
-  getFilms: async (page: number, filters: IFilmFilters) => {
+  getFilms: async (page: number, filters: IFilmFilters, signal?: AbortSignal) => {
     const limit = 50;
     const query: string[] = [];
 
@@ -34,6 +34,6 @@ export const filmsApi = {
 
     const queryString = query.join("&");
 
-    return apiClient.get<IFilmsResponse>(`v1.4/movie?${queryString}`).then((res) => res.data.docs);
+    return apiClient.get<IFilmsResponse>(`v1.4/movie?${queryString}`, { signal }).then((res) => res.data.docs);
   },
 };

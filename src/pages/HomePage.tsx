@@ -9,13 +9,16 @@ const HomePage = ({ onlyFavorites }: { onlyFavorites?: boolean }) => {
   useEffect(() => {
     filmStore.clearFilms();
 
+    const abortController = new AbortController();
+
     if (onlyFavorites) {
-      filmStore.getFilmsWithIds(1, JSON.parse(localStorage.getItem("favorites") || "[]"));
+      filmStore.getFilmsWithIds(1, JSON.parse(localStorage.getItem("favorites") || "[]"), abortController.signal);
       return;
     }
     filmStore.setFilters(getFiltersFromParams());
-    filmStore.getFilmsFromPage(1);
-    filmStore.getGenres();
+    filmStore.getFilmsFromPage(1, abortController.signal);
+
+    return () => abortController.abort();
   }, [onlyFavorites]);
 
   return (

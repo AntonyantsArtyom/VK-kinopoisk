@@ -8,6 +8,8 @@ import MoviePage from "./pages/MoviePage";
 
 import { createGlobalStyle } from "styled-components";
 import ConfirmModal from "./shared/ConfirmModal/ConfirmModal";
+import { useEffect } from "react";
+import { filmStore } from "./entities/Film/filmsStore";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -20,6 +22,10 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () => {
+  useEffect(() => {
+    filmStore.getGenres();
+  }, []);
+
   return (
     <ConfigProvider colorScheme="light">
       <AdaptivityProvider>

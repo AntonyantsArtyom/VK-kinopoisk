@@ -31,18 +31,18 @@ class FilmStore {
     this.genres = await filmsApi.getGenres();
   }
 
-  async getFilmsFromPage(page: number) {
+  async getFilmsFromPage(page: number, signal?: AbortSignal) {
     this.page = page;
-    const new_films = await filmsApi.getFilms(page, this.filters);
+    const new_films = await filmsApi.getFilms(page, this.filters, signal);
     runInAction(() => {
       this.films = [...this.films, ...new_films];
     });
   }
 
-  async getFilmsWithIds(page: number, ids: string[]) {
+  async getFilmsWithIds(page: number, ids: string[], signal?: AbortSignal) {
     this.page = page;
     const limit = 50;
-    const new_films = await filmsApi.getFilmsWithIds(ids.slice(page - 1, limit));
+    const new_films = await filmsApi.getFilmsWithIds(ids.slice(page - 1, limit), signal);
     runInAction(() => {
       this.films = [...this.films, ...new_films];
     });
