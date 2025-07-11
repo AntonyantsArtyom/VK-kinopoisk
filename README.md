@@ -1,6 +1,5 @@
 для запуска локально:
-npm i
-npm run dev
+npm i + npm run dev
 
 дополнительно:
 прод-версия выложена на gh-page
