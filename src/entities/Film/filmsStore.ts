@@ -1,36 +1,32 @@
-import { observable, action, makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { filmsApi } from "./filmsApi";
 import type { IFilm, IFilmFilters, IGenre } from "./films.types";
 
 class FilmStore {
-  @observable films: IFilm[] = [];
-  @observable genres: IGenre[] = [];
-  @observable filters: IFilmFilters = {};
-  @observable page: number = 1;
+  films: IFilm[] = [];
+  genres: IGenre[] = [];
+  filters: IFilmFilters = {};
+  page: number = 1;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  @action
   clearFilms() {
     this.page = 1;
     this.films = [];
   }
 
-  @action
   async setFilters(filters: IFilmFilters) {
     this.page = 1;
     this.films = [];
     this.filters = filters;
   }
 
-  @action
   async getGenres() {
     this.genres = await filmsApi.getGenres();
   }
 
-  @action
   async getFilmsFromPage(page: number) {
     this.page = page;
     const new_films = await filmsApi.getFilms(page, this.filters);
@@ -39,7 +35,6 @@ class FilmStore {
     });
   }
 
-  @action
   async getFilmsWithIds(page: number, ids: string[]) {
     this.page = page;
     const limit = 50;
