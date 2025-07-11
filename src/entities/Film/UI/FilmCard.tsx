@@ -50,9 +50,9 @@ const FilmCard = ({ film, onlyFavorites }: { film: IFilm; onlyFavorites?: boolea
             <ContentBadge.IconSlot>{isFavorite ? <Icon28ThumbsUp /> : <Icon28ThumbsUpOutline />}</ContentBadge.IconSlot>
           </LikeBadgeStyled>
         </BagdesAreaStyled>
-        {isImageLoading && film?.poster?.url && <ImageStyled noBorder src={"/placeholder-image.svg"} alt={film.name} />}
+        {isImageLoading && film?.poster?.url && <ImageStyled noBorder src={`${import.meta.env.BASE_URL}placeholder-image.svg`} alt={film.name} />}
         <ConditionalHideContainer hide={isImageLoading}>
-          <ImageStyled onLoad={() => setIsImageLoading(false)} noBorder src={film?.poster?.url ? film?.poster?.url : "/no-image.svg"} alt={film.name} />
+          <ImageStyled onLoad={() => setIsImageLoading(false)} noBorder src={film?.poster?.url ? film?.poster?.url : `${import.meta.env.BASE_URL}no-image.svg`} alt={film.name} />
         </ConditionalHideContainer>
       </ImageAreaStyled>
       <NameStyled weight="2">{film.name || film.alternativeName}</NameStyled>

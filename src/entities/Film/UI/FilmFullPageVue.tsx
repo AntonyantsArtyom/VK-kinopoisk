@@ -16,7 +16,7 @@ const FilmFullPageView = (film: IFilm) => {
 
   return (
     <ContainerStyled $isSmallScreen={isSmallScreen}>
-      <div>
+      <ImageAreaStyled>
         <BagdesAreaStyled>
           <ContentBadge size="l">{film.year + " год"}</ContentBadge>
           <ContentBadge size="l">
@@ -26,9 +26,9 @@ const FilmFullPageView = (film: IFilm) => {
             </ContentBadge.IconSlot>
           </ContentBadge>
         </BagdesAreaStyled>
-        {isImageLoading && film?.poster?.url && <ImageStyled noBorder src={"/placeholder-image.svg"} alt={film.name} />}
-        <ImageStyled onLoad={() => setIsImageLoading(false)} noBorder src={film?.poster?.url ? film?.poster?.url : "/no-image.svg"} alt={film.name} />
-      </div>
+        {isImageLoading && film?.poster?.url && <ImageStyled noBorder src={`${import.meta.env.BASE_URL}placeholder-image.svg`} alt={film.name} />}
+        <ImageStyled onLoad={() => setIsImageLoading(false)} noBorder src={film?.poster?.url ? film?.poster?.url : `${import.meta.env.BASE_URL}no-image.svg`} alt={film.name} />
+      </ImageAreaStyled>
       <TextAreaStyled>
         <Text>{film.name || film.alternativeName}</Text>
         <Text>{film.description}</Text>
@@ -47,6 +47,10 @@ const FilmFullPageView = (film: IFilm) => {
 };
 
 export default observer(FilmFullPageView);
+
+const ImageAreaStyled = styled.div`
+  min-height: 250px;
+`;
 
 const ContainerStyled = styled.div<{ $isSmallScreen: boolean }>`
   display: grid;
