@@ -83,7 +83,7 @@ Please change the parent <Route path="${R}"> to <Route path="${R==="/"?"*":`${R}
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  min-height: 200px;
   padding-bottom: 10px;
 `,xj=lt.div`
   position: relative;
