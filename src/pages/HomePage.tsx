@@ -20,7 +20,6 @@ const HomePage = ({ onlyFavorites }: { onlyFavorites?: boolean }) => {
 
   return (
     <>
-      {}
       <FilmsFilter onlyFavorites={onlyFavorites} />
       <FilmsList onlyFavorites={onlyFavorites} />
     </>

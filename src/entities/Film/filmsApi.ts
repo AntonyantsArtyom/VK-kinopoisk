@@ -11,6 +11,7 @@ export const filmsApi = {
   },
 
   getFilmsWithIds: async (ids: string[]) => {
+    if (ids.length === 0) return [];
     const limit = 50;
     const query = ids.map((id) => `id=${id}`).join("&") + `&limit=${limit}`;
     return apiClient.get<IFilmsResponse>(`v1.4/movie?${query}`).then((res) => res.data.docs);
