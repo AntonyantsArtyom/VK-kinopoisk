@@ -7,54 +7,6 @@ import { ConditionalContainer } from "../../../shared/ConditionalContainer";
 import { filmStore } from "../../../entities/Film/filmsStore";
 import { observer } from "mobx-react-lite";
 
-const TextInputStyled = styled(Text)`
-  padding: 0 5px;
-  color: var(--vkui--color_icon_secondary);
-`;
-
-const FormYearItemStyled = styled(FormItem)<{ isSmallScreen: boolean }>`
-  && {
-    max-width: ${({ isSmallScreen }) => (isSmallScreen ? "unset" : "150px")};
-    min-width: 150px;
-  }
-`;
-
-const FormRatingItemStyled = styled(FormItem)`
-  && {
-    max-width: 100px;
-    min-width: 80px;
-  }
-`;
-
-const FormGenresItemStyled = styled(FormItem)<{ isLargeScreen: boolean }>`
-  && {
-    max-width: ${({ isLargeScreen }) => (isLargeScreen ? "400px" : "unset")};
-    min-width: 275px;
-  }
-`;
-
-const FormButtonsAreaItemStyled = styled(FormItem)`
-  && {
-    display: flex;
-    justify-self: flex-end;
-    align-self: flex-end;
-    margin-left: auto;
-    gap: 5px;
-  }
-`;
-
-const ConditionalFlexGridContainerStyled = styled.div<{ isSmallScreen: boolean }>`
-  display: ${({ isSmallScreen }) => (isSmallScreen ? "grid" : "flex")};
-`;
-
-const ConditionalSmallViewFlexContainer = styled.div`
-  display: flex;
-`;
-
-const FormStyled = styled.form<{ isLargeScreen: boolean }>`
-  display: ${({ isLargeScreen }) => (isLargeScreen ? "flex" : "grid")};
-`;
-
 import { useEffect, useState } from "react";
 import type { IFilmFilters } from "../../../entities/Film/films.types";
 import setFiltersToParams from "../helpers/setFiltersToParams";
@@ -197,3 +149,51 @@ function FilmsFilter({ onlyFavorites }: { onlyFavorites?: boolean }) {
 }
 
 export default observer(FilmsFilter);
+
+const TextInputStyled = styled(Text)`
+  padding: 0 5px;
+  color: var(--vkui--color_icon_secondary);
+`;
+
+const FormYearItemStyled = styled(FormItem)<{ isSmallScreen: boolean }>`
+  && {
+    max-width: ${({ isSmallScreen }) => (isSmallScreen ? "unset" : "150px")};
+    min-width: 150px;
+  }
+`;
+
+const FormRatingItemStyled = styled(FormItem)`
+  && {
+    max-width: 100px;
+    min-width: 80px;
+  }
+`;
+
+const FormGenresItemStyled = styled(FormItem)<{ isLargeScreen: boolean }>`
+  && {
+    max-width: ${({ isLargeScreen }) => (isLargeScreen ? "400px" : "unset")};
+    min-width: 275px;
+  }
+`;
+
+const FormButtonsAreaItemStyled = styled(FormItem)`
+  && {
+    display: flex;
+    justify-self: flex-end;
+    align-self: flex-end;
+    margin-left: auto;
+    gap: 5px;
+  }
+`;
+
+const ConditionalFlexGridContainerStyled = styled.div<{ isSmallScreen: boolean }>`
+  display: ${({ isSmallScreen }) => (isSmallScreen ? "grid" : "flex")};
+`;
+
+const ConditionalSmallViewFlexContainer = styled.div`
+  display: flex;
+`;
+
+const FormStyled = styled.form<{ isLargeScreen: boolean }>`
+  display: ${({ isLargeScreen }) => (isLargeScreen ? "flex" : "grid")};
+`;
