@@ -80,7 +80,7 @@ function FilmsFilter({ onlyFavorites }: { onlyFavorites?: boolean }) {
 
   if (onlyFavorites) {
     return (
-      <FormStyled isLargeScreen={isLargeScreen} onSubmit={(e) => e.preventDefault()}>
+      <FormStyled $isLargeScreen={isLargeScreen} onSubmit={(e) => e.preventDefault()}>
         <FormButtonsAreaItemStyled>
           <Button onClick={favoritesButtonClickHandler} size="l">
             Вернуться ко всем фильмам
@@ -91,8 +91,8 @@ function FilmsFilter({ onlyFavorites }: { onlyFavorites?: boolean }) {
   }
 
   return (
-    <FormStyled isLargeScreen={isLargeScreen} onSubmit={(e) => e.preventDefault()}>
-      <FormGenresItemStyled isLargeScreen={isLargeScreen} htmlFor="genres" top="жанр">
+    <FormStyled $isLargeScreen={isLargeScreen} onSubmit={(e) => e.preventDefault()}>
+      <FormGenresItemStyled $isLargeScreen={isLargeScreen} htmlFor="genres" top="жанр">
         <ChipsSelect
           id="genres"
           value={currentFiltersContent.genres?.map((genre) => ({ value: genre, label: genre }))}
@@ -117,12 +117,12 @@ function FilmsFilter({ onlyFavorites }: { onlyFavorites?: boolean }) {
         />
       </FormGenresItemStyled>
 
-      <ConditionalContainer renderContainer={!isLargeScreen} Container={ConditionalFlexGridContainerStyled} props={{ isSmallScreen }}>
+      <ConditionalContainer renderContainer={!isLargeScreen} Container={ConditionalFlexGridContainerStyled} props={{ $isSmallScreen: isSmallScreen }}>
         <FormLayoutGroup mode="horizontal">
-          <FormYearItemStyled isSmallScreen={isSmallScreen} htmlFor="year_start" top="период">
+          <FormYearItemStyled $isSmallScreen={isSmallScreen} htmlFor="year_start" top="период">
             <Input id="year_start" placeholder="1990" value={currentFiltersContent.year_start ?? ""} onChange={handleInputChange("year_start")} before={<TextInputStyled color="secondary">после:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
           </FormYearItemStyled>
-          <FormYearItemStyled isSmallScreen={isSmallScreen} htmlFor="year_end">
+          <FormYearItemStyled $isSmallScreen={isSmallScreen} htmlFor="year_end">
             <Input id="year_end" placeholder={new Date().getFullYear().toString()} value={currentFiltersContent.year_end ?? ""} onChange={handleInputChange("year_end")} before={<TextInputStyled>до:</TextInputStyled>} after={<TextInputStyled>г.</TextInputStyled>} />
           </FormYearItemStyled>
         </FormLayoutGroup>
@@ -155,9 +155,9 @@ const TextInputStyled = styled(Text)`
   color: var(--vkui--color_icon_secondary);
 `;
 
-const FormYearItemStyled = styled(FormItem)<{ isSmallScreen: boolean }>`
+const FormYearItemStyled = styled(FormItem)<{ $isSmallScreen: boolean }>`
   && {
-    max-width: ${({ isSmallScreen }) => (isSmallScreen ? "unset" : "150px")};
+    max-width: ${({ $isSmallScreen }) => ($isSmallScreen ? "unset" : "150px")};
     min-width: 150px;
   }
 `;
@@ -169,9 +169,9 @@ const FormRatingItemStyled = styled(FormItem)`
   }
 `;
 
-const FormGenresItemStyled = styled(FormItem)<{ isLargeScreen: boolean }>`
+const FormGenresItemStyled = styled(FormItem)<{ $isLargeScreen: boolean }>`
   && {
-    max-width: ${({ isLargeScreen }) => (isLargeScreen ? "400px" : "unset")};
+    max-width: ${({ $isLargeScreen }) => ($isLargeScreen ? "400px" : "unset")};
     min-width: 275px;
   }
 `;
@@ -186,14 +186,14 @@ const FormButtonsAreaItemStyled = styled(FormItem)`
   }
 `;
 
-const ConditionalFlexGridContainerStyled = styled.div<{ isSmallScreen: boolean }>`
-  display: ${({ isSmallScreen }) => (isSmallScreen ? "grid" : "flex")};
+const ConditionalFlexGridContainerStyled = styled.div<{ $isSmallScreen: boolean }>`
+  display: ${({ $isSmallScreen }) => ($isSmallScreen ? "grid" : "flex")};
 `;
 
 const ConditionalSmallViewFlexContainer = styled.div`
   display: flex;
 `;
 
-const FormStyled = styled.form<{ isLargeScreen: boolean }>`
-  display: ${({ isLargeScreen }) => (isLargeScreen ? "flex" : "grid")};
+const FormStyled = styled.form<{ $isLargeScreen: boolean }>`
+  display: ${({ $isLargeScreen }) => ($isLargeScreen ? "flex" : "grid")};
 `;
